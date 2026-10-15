@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <meta name="description" content="输入一个数字，围观一场由 buffalo 语法引发的水牛无限制格斗大赛。">
+  <title>Buffalo Syntax Club · 水牛语法俱乐部</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="./src/dance.css">
+  <link rel="stylesheet" href="./src/editor.css">
+  <link rel="stylesheet" href="./src/release.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar spring-item">
+      <a class="brand" href="#" aria-label="Buffalo Syntax Club 首页"><span class="brand-mark">b.</span><span>BUFFALO<br>SYNTAX CLUB<span class="brand-cn">水牛语法俱乐部</span></span></a>
+      <span class="edition"><span class="status-dot"></span> 一项毫无意义的语言实验 <span class="edition-no">EST. 2026</span></span>
+      <button class="jelly-switch" id="jelly-toggle" role="switch" aria-checked="false"><span class="switch-track"><span></span></span><span>Q 弹模式 <b id="jelly-state">关</b></span><span class="sparkle" aria-hidden="true">✳</span></button>
+    </header>
+
+    <main>
+      <section class="hero spring-item" aria-labelledby="page-title">
+        <div class="hero-copy"><div class="eyebrow"><span class="tiny-star">✳</span> LESS SENSE. MORE BUFFALO.</div><h1 id="page-title">Buffalo.<br><em>Buffalo?</em> Buffalo!</h1><div class="hero-bottom"><span class="orange-line"></span><p>一个单词，三种身份。<br>一群水牛，没完没了的恩怨。</p></div></div>
+        <div class="hero-note"><span class="note-number">01 / THE EXPERIMENT</span><p>如果一句话里<br>只有 <strong>buffalo</strong>，<br>到底是谁在欺负谁？</p><span class="note-caption">输入水牛浓度，让语法替它们打一架。</span><svg class="hero-doodle" viewBox="0 0 140 82" aria-hidden="true"><path d="M9 14 Q78 0 91 31 Q105 66 48 64 Q21 58 47 36 Q85 13 129 68 M110 64 L131 71 L130 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <span class="hero-watermark" aria-hidden="true">b</span>
+      </section>
+
+      <button id="show-help" class="help-trigger" aria-controls="quick-help" hidden>怎么玩？查看三步说明</button>
+      <section id="quick-help" class="quick-help" aria-label="三步开始玩"><div class="quick-help-title"><b>第一次来？三步就会。</b><button id="dismiss-help" aria-label="收起玩法说明">收起说明 ×</button></div><ol><li><b>① 选词数，开赛</b><p>数字表示句子里的单词数量，水牛按图中的组号区分。一个 buffalo 也可能是“欺负”或“布法罗”。</p></li><li><b>② 点单词，认恩怨</b><p>原句、修饰框和比赛图一起高亮。箭头从欺负者指向被欺负者。</p></li><li><b>③ 亲手改，随便玩</b><p>点“在图里改”安排对手，或编辑句子草稿；不满意就撤销。打开 Q 弹，让水牛蹦起来。</p></li></ol></section>
+
+      <section class="generator spring-item" aria-label="生成 Buffalo 句子">
+        <form id="generator-form" novalidate>
+          <label class="input-label" for="count-input"><span>句子里，来几个 buffalo？</span><small>单词数量 · 1–1,000</small></label>
+          <div class="stepper"><button type="button" id="minus" aria-label="减少一个 buffalo">−</button><input id="count-input" type="number" min="1" max="1000" step="1" value="8" inputmode="numeric" aria-describedby="input-error"><button type="button" id="plus" aria-label="增加一个 buffalo">+</button></div>
+          <button class="generate-button" type="submit">开赛，Buffalo! <span aria-hidden="true">↗</span></button>
+          <div class="presets"><span>或试试</span><button type="button" data-count="3">3</button><button class="active" type="button" data-count="8" aria-pressed="true">8</button><button type="button" data-count="18">18</button><button type="button" data-count="32">32</button><button type="button" id="random-count" aria-label="随机生成 7 到 40 个 buffalo">⚄</button></div>
+        </form>
+        <p class="count-help">这里数的是单词；比赛图中的每一组水牛，可能对应多个单词。</p><p id="input-error" class="input-error" role="alert" hidden></p>
+      </section>
+
+      <p class="performance-note" id="performance-note" data-performance-note role="status" hidden></p>
+      <section class="sentence-card spring-item" aria-labelledby="sentence-heading">
+        <div class="section-meta"><h2 id="sentence-heading"><span class="live-dot"></span> 本场参赛句</h2><div class="sentence-tools"><span id="token-count">08 词 · 全是 BUFFALO</span><button id="copy-sentence" aria-label="复制生成的句子" title="复制句子"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button></div></div>
+        <div id="sentence" class="sentence" aria-label="逐词点击查看语法与对应水牛"></div>
+        <div class="sentence-foot"><div class="legend"><span><i class="city"></i>地名 / 布法罗的</span><span><i class="noun"></i>名词 / 水牛</span><span><i class="verb"></i>动词 / 欺负</span></div><span class="click-hint">点击任意单词，追踪它的恩怨 ↙</span></div>
+        <div id="scope-explanation" class="scope-explanation" aria-live="polite"></div>
+        <div class="edit-entry"><span class="valid-reading">✓ 正式句子已配好恩怨</span><div><button id="edit-on-map">✎ 在图里改</button><button data-edit-action="undo" disabled>↶ 撤销</button><button data-edit-action="redo" disabled>↷ 重做</button></div></div>
+        <details id="text-editor" class="text-editor">
+          <summary>✎ 直接编辑句子 <span>先看读法，再让水牛上场</span></summary>
+          <div class="draft-body">
+            <p class="editor-help" id="draft-help">只管增减 buffalo，系统帮你安排身份。大写 <b>Buffalo</b> 是产地牌，紧贴下一只小写 <b>buffalo</b>。同一句可能有不同恩怨，挑你喜欢的一种。</p>
+            <label for="sentence-draft" class="sr-only">Buffalo 句子草稿</label><textarea id="sentence-draft" rows="3" maxlength="12000" spellcheck="false" autocapitalize="off" aria-describedby="draft-help draft-status"></textarea>
+            <div class="draft-toolbar"><div><button id="draft-add">+ 一个 buffalo</button><button id="draft-remove">− 最后一个</button><button id="draft-load">载入正式句子</button></div><span id="draft-count"></span></div>
+            <p id="draft-status" class="draft-status" role="status"></p>
+            <div id="draft-repairs" class="draft-repairs"></div>
+            <div id="draft-candidates" class="draft-candidates" role="group" aria-label="选择草稿的恩怨读法"></div>
+            <div id="draft-preview" class="draft-preview" hidden></div>
+            <div class="draft-footer"><span>草稿未应用时，比赛图与正式句子保持有效。</span><button id="apply-draft" class="editor-primary" disabled>应用读法 → 同步比赛图</button></div>
+          </div>
+        </details>
+      </section>
+
+      <section class="syntax-lab spring-item" aria-labelledby="syntax-heading">
+        <div class="syntax-toolbar"><div><span class="eyebrow">GRAMMAR X-RAY</span><h2 id="syntax-heading">把修饰关系，拆开给你看。</h2></div><div class="syntax-actions"><button id="expand-syntax" aria-expanded="true">收起从句</button><button id="classic-count">经典 8 词</button></div></div>
+        <p class="syntax-help">蓝框里的地名只修饰紧邻的名词；每个橙色从句框整段修饰箭头指向的水牛。点击从句标签，原句会亮起对应范围。</p>
+        <div id="syntax-map" class="syntax-map"></div>
+      </section>
+
+      <div class="workspace">
+        <section class="arena-card spring-item" aria-labelledby="arena-heading">
+          <div class="panel-header"><div><div class="eyebrow">THE BUFFALO FIGHT CLUB</div><h2 id="arena-heading">水牛无限制格斗大赛<span class="heading-star">✷</span></h2></div><span class="round-tag" id="round-tag">ROUND<br><b>008</b></span></div>
+          <div class="arena-subline"><span><i></i> <span id="tree-seed">随机恩怨树</span></span><span id="arena-stats"></span></div>
+          <div id="arena-stage" class="arena-stage">
+          <div class="arena-controls" aria-label="关系图操作"><div class="arena-actions"><button id="arena-edit-toggle" aria-expanded="false" aria-controls="herd-editor">✎ 编辑恩怨</button><button id="reroll">⚄ 换一场 · 词数不变</button><button id="stage-jelly-toggle" class="stage-jelly-switch" role="switch" aria-checked="false"><span class="switch-track"><span></span></span> Q 弹 <b id="stage-jelly-state">关</b></button><span class="stage-tempo"><span id="stage-audio-label">无音乐 · 120 BPM</span><span class="beat-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span></span></div><div class="camera-controls"><button id="zoom-out" aria-label="缩小关系图" title="缩小">−</button><output id="zoom-value" aria-live="off">100%</output><button id="zoom-in" aria-label="放大关系图" title="放大">+</button><button id="zoom-fit" title="让所有水牛都出现在画面中">看全图</button><button id="zoom-focus" title="放大并移到选中的水牛">找选中</button><button id="arena-fullscreen" aria-label="全屏查看比赛图" title="全屏">⛶ 全屏</button></div></div>
+          <section id="herd-editor" class="herd-editor" aria-label="安排水牛恩怨" hidden>
+            <div class="herd-edit-heading"><div><b id="edit-group-title"></b><span id="edit-group-info"></span></div><div class="edit-history"><span id="edit-word-count"></span><button data-edit-action="undo" disabled aria-label="撤销上次编辑">↶ 撤销</button><button data-edit-action="redo" disabled aria-label="重做上次编辑">↷ 重做</button></div></div>
+            <div class="herd-edit-actions"><button id="edit-materialize" data-edit-action="materialize" hidden>让双方上场 · 变为 3 词</button><button id="edit-city" data-edit-action="city"></button><button id="edit-add" data-edit-action="add"></button><button id="edit-move">⤳ 改它欺负谁</button><button id="edit-swap" data-edit-action="swap">⇄ 主赛双方互换 · 词数不变</button><button id="edit-remove" data-edit-action="remove"></button><span id="edit-order" hidden><button data-edit-action="earlier" aria-label="让选中对手提前出现在句子里">← 先说这组</button><button data-edit-action="later" aria-label="让选中对手稍后出现在句子里">后说这组 →</button></span></div>
+            <div id="move-picker" class="move-picker" hidden><label for="edit-target">新对象</label><select id="edit-target"><option value="">点图中亮起的水牛，或在此选择</option></select><button id="apply-move" disabled>接上这条恩怨</button><button id="cancel-move">取消 <kbd>Esc</kbd></button></div>
+            <p id="edit-status" class="editor-help" role="status">点水牛选中它，再安排对手。词序、修饰和词数会一起更新。</p>
+            <p class="editor-convention">按本站的实验规则配句；部分读法不一定像日常英语一样自然。</p>
+          </section>
+          <p class="performance-note stage-performance" data-performance-note role="status" hidden></p>
+          <div class="arena-viewport" id="arena-viewport"><svg id="arena" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="group" aria-label="水牛恩怨树：滚轮缩放，拖拽平移，双指缩放；方向键平移，加减号缩放，0 适应全图"></svg><div id="jelly-overlay" aria-hidden="true"></div><span class="pan-hint">拖着看 · 滚轮放大 · 双指也行</span></div>
+          <div class="arena-key"><span><span class="arrow-sample">⟶</span> 施动者 → 被欺负者</span><span>实线：主句 / 虚线：修饰从句</span></div>
+          <div class="fighter-detail" id="fighter-detail" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section class="analysis-card spring-item" aria-labelledby="analysis-heading">
+          <div class="analysis-top"><div><div class="eyebrow">EVERY BUFFALO HAS A JOB</div><h2 id="analysis-heading">逐词，认领身份。</h2></div><span class="analysis-icon" aria-hidden="true">↳</span></div>
+          <div class="tabs" role="tablist" aria-label="语法分析方式"><button id="words-tab" role="tab" aria-selected="true" aria-controls="words-panel">逐词释义 <span id="word-tab-count">08</span></button><button id="structure-tab" role="tab" aria-selected="false" aria-controls="structure-panel" tabindex="-1">句法结构</button></div>
+          <div id="words-panel" role="tabpanel" aria-labelledby="words-tab"><div class="table-scroll"><table><thead><tr><th scope="col"># / 单词</th><th scope="col">词性</th><th scope="col">指代 / 修饰 / 动作对象</th></tr></thead><tbody id="token-table"></tbody></table></div></div>
+          <div id="structure-panel" role="tabpanel" aria-labelledby="structure-tab" hidden></div>
+          <div class="token-detail" id="token-detail" aria-live="polite"></div>
+        </section>
+      </div>
+
+      <section class="translation spring-item" aria-labelledby="translation-heading"><span class="translation-mark" aria-hidden="true">“</span><div><h2 id="translation-heading">翻译成人话，大概是：</h2><p id="translation-text"></p><details id="all-relations"><summary>展开全部恩怨</summary><ul id="relation-list"></ul></details></div><span class="translation-aside">语言很严谨。<br>水牛很无辜。</span></section>
+
+      <section class="sound-studio spring-item" aria-labelledby="sound-heading">
+        <div class="sound-title"><span class="record" aria-hidden="true"><i></i></span><div><h2 id="sound-heading">给水牛配点乐 <span id="track-bpm" class="track-bpm">120 BPM / 大拍 60 BPM</span></h2><p id="audio-status" role="status">还没选音乐。直接打开 Q 弹也能蹦。</p></div></div>
+        <div class="audio-picker"><label class="upload-button file-picker">♫ 选择音频<input id="audio-file" type="file" accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac,.flac,.opus" aria-label="选择本机音频文件"></label><span id="audio-filename">未选择文件</span><button id="clear-audio" class="upload-button" disabled>移除音乐</button><form id="bpm-form" novalidate><label for="bpm-input">音乐速度 <small>BPM</small></label><input id="bpm-input" type="number" min="30" max="300" step="0.1" inputmode="decimal" value="120" aria-describedby="bpm-help bpm-error"><button class="upload-button" type="submit">应用速度</button></form></div>
+        <p class="audio-help" id="bpm-help">选择设备上的音乐，在浏览器里播放。BPM 是每分钟拍数，按歌曲速度填写；不清楚可先用 120。</p><p id="bpm-error" class="input-error" role="alert" hidden></p>
+        <div class="audio-controls"><button id="restart-track" class="upload-button" disabled>↺ 从头播放</button><button id="align-beat" class="upload-button" title="听到重拍时点击，让动画从这一拍重新对齐" disabled>✦ 对齐重拍</button><label class="volume-control"><span aria-hidden="true">♪</span><span class="sr-only">BGM 音量</span><input id="volume" type="range" min="0" max="100" value="35"><span id="volume-value">35%</span></label></div><div class="track-progress"><span id="track-time">0:00 / --:--</span><label><span class="sr-only">音乐播放进度</span><input id="audio-seek" type="range" min="0" max="100" step="0.1" value="0" disabled></label><span class="beat-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div><audio id="bgm-audio" loop preload="metadata"></audio>
+      </section>
+
+      <section class="fine-print spring-item"><p><b>一点点语法，一大堆水牛。</b> 每次抽签生成一棵解释树；7 词起保证真实分叉。括号视角展示省略 that 的嵌套与叠加关系从句。1–2 词标明祈使句的省略成分。支持 1–1,000 词。</p><a href="https://cse.buffalo.edu/~rapaport/buffalobuffalo.html" target="_blank" rel="noreferrer">这个梗的来历 ↗</a></section>
+    </main>
+    <footer class="spring-item"><span>BUFFALO SYNTAX CLUB © 2026 · <a href="./LICENSE">MIT</a></span><span>NO BUFFALO WERE HARMED. ONLY GRAMMAR.</span><span>毫无意义，十分认真。 <b>↗</b></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <button id="jelly-land" hidden>↓ 落地！关闭 Q 弹 <kbd>Esc</kbd></button>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

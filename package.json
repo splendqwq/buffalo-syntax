@@ -1,0 +1,16 @@
+{
+  "name": "buffalo-syntax-club",
+  "version": "5.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "一个毫无意义、但语法很认真的 Buffalo 解释器。",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node server.mjs --dist"
+  },
+  "engines": { "node": ">=20" }
+}

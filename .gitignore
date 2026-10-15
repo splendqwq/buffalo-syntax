@@ -1,0 +1,17 @@
+node_modules/
+.DS_Store
+*.log
+artifacts/
+dist/
+local-media/
+*.mp3
+*.m4a
+*.aac
+*.wav
+*.ogg
+*.flac
+*.opus
+*.aif
+*.aiff
+.env
+.env.*
